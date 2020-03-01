@@ -1,0 +1,37 @@
+解题思路：
+利用滑动窗口的思想来解决，用一个集合进行元素存储，遍历字符串，一直推进右索引，当集合有重复元素时，左索引推进，直至不在有重复元素
+
+Java版本
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int l=0;
+        int r=0;
+        int res=0;
+        Set<Character> set=new HashSet<>();
+            while(r<s.length()){
+            while(set.contains(s.charAt(r))){
+                set.remove(s.charAt(l++));
+            }
+                set.add(s.charAt(r++));
+                res=Math.max(res,r-l);
+        }
+        return res;
+    }
+}
+
+python版本
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        l=0
+        r=0
+        _set=set()
+        length=0
+        while r<len(s):
+            while s[r] in _set:
+                _set.remove(s[l])
+                l+=1
+            _set.add(s[r])
+            r+=1
+            length=max(length,r-l)
+        return length
+            
